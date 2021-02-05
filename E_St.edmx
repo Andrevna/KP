@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище StaffModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Department_id" />
+            <PropertyRef Name="Department_Name" />
+          </Key>
+          <Property Name="Department_id" Type="int" Nullable="false" />
+          <Property Name="Department_Name" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="Reception_id" />
+            <PropertyRef Name="Personnal_id" />
+          </Key>
+          <Property Name="Reception_id" Type="int" Nullable="false" />
+          <Property Name="Personnal_id" Type="int" Nullable="false" />
+          <Property Name="Department_id" Type="int" />
+          <Property Name="Post_id" Type="int" />
+          <Property Name="Reception_Date" Type="date" />
+          <Property Name="Dismissal_Date" Type="date" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Post_id" />
+          </Key>
+          <Property Name="Post_id" Type="int" Nullable="false" />
+          <Property Name="Post_Name" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Personnal_id" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="Personnal_id" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Middle_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" />
+          <Property Name="Birth_Date" Type="date" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="255" />
+          <Property Name="Education" Type="nvarchar" MaxLength="255" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Department_id" />
+            <PropertyRef Name="Post_id" />
+          </Key>
+          <Property Name="Department_id" Type="int" Nullable="false" />
+          <Property Name="Post_id" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <Association Name="FK_Departments_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Departments1" Type="Self.Departments" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Principal>
+            <Dependent Role="Departments1">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departments_Departments1">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Departments1" Type="Self.Departments" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Principal>
+            <Dependent Role="Departments1">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Destination_Destination">
+          <End Role="Destination" Type="Self.Destination" Multiplicity="1" />
+          <End Role="Destination1" Type="Self.Destination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Destination">
+              <PropertyRef Name="Reception_id" />
+              <PropertyRef Name="Personnal_id" />
+            </Principal>
+            <Dependent Role="Destination1">
+              <PropertyRef Name="Reception_id" />
+              <PropertyRef Name="Personnal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Destination_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Destination" Type="Self.Destination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Post_id" />
+            </Principal>
+            <Dependent Role="Destination">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Post_id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="Post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище StaffModelContainer">
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Destination" EntityType="Self.Destination" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Departments_Departments" Association="Self.FK_Departments_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Departments1" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departments_Departments1" Association="Self.FK_Departments_Departments1">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Departments1" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Destination_Destination" Association="Self.FK_Destination_Destination">
+            <End Role="Destination" EntitySet="Destination" />
+            <End Role="Destination1" EntitySet="Destination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Destination_State" Association="Self.FK_Destination_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Destination" EntitySet="Destination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Posts" Association="Self.FK_State_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StaffModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Department_id" />
+            <PropertyRef Name="Department_Name" />
+          </Key>
+          <Property Name="Department_id" Type="Int32" Nullable="false" />
+          <Property Name="Department_Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Departments1" Relationship="Self.FK_Departments_Departments" FromRole="Departments" ToRole="Departments1" />
+          <NavigationProperty Name="Departments2" Relationship="Self.FK_Departments_Departments" FromRole="Departments1" ToRole="Departments" />
+          <NavigationProperty Name="Departments11" Relationship="Self.FK_Departments_Departments1" FromRole="Departments" ToRole="Departments1" />
+          <NavigationProperty Name="Departments3" Relationship="Self.FK_Departments_Departments1" FromRole="Departments1" ToRole="Departments" />
+        </EntityType>
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="Reception_id" />
+            <PropertyRef Name="Personnal_id" />
+          </Key>
+          <Property Name="Reception_id" Type="Int32" Nullable="false" />
+          <Property Name="Personnal_id" Type="Int32" Nullable="false" />
+          <Property Name="Department_id" Type="Int32" />
+          <Property Name="Post_id" Type="Int32" />
+          <Property Name="Reception_Date" Type="DateTime" Precision="0" />
+          <Property Name="Dismissal_Date" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Destination1" Relationship="Self.FK_Destination_Destination" FromRole="Destination" ToRole="Destination1" />
+          <NavigationProperty Name="Destination2" Relationship="Self.FK_Destination_Destination" FromRole="Destination1" ToRole="Destination" />
+          <NavigationProperty Name="State" Relationship="Self.FK_Destination_State" FromRole="Destination" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Post_id" />
+          </Key>
+          <Property Name="Post_id" Type="Int32" Nullable="false" />
+          <Property Name="Post_Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="State" Relationship="Self.FK_State_Posts" FromRole="Posts" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Personnal_id" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="Personnal_id" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Middle_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Birth_Date" Type="DateTime" Precision="0" />
+          <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Education" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Department_id" />
+            <PropertyRef Name="Post_id" />
+          </Key>
+          <Property Name="Department_id" Type="Int32" Nullable="false" />
+          <Property Name="Post_id" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Destination" Relationship="Self.FK_Destination_State" FromRole="State" ToRole="Destination" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_State_Posts" FromRole="State" ToRole="Posts" />
+        </EntityType>
+        <Association Name="FK_Departments_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Departments1" Type="Self.Departments" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Principal>
+            <Dependent Role="Departments1">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departments_Departments1">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Departments1" Type="Self.Departments" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Principal>
+            <Dependent Role="Departments1">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Department_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Destination_Destination">
+          <End Role="Destination" Type="Self.Destination" Multiplicity="1" />
+          <End Role="Destination1" Type="Self.Destination" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Destination">
+              <PropertyRef Name="Reception_id" />
+              <PropertyRef Name="Personnal_id" />
+            </Principal>
+            <Dependent Role="Destination1">
+              <PropertyRef Name="Reception_id" />
+              <PropertyRef Name="Personnal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Destination_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Destination" Type="Self.Destination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Post_id" />
+            </Principal>
+            <Dependent Role="Destination">
+              <PropertyRef Name="Department_id" />
+              <PropertyRef Name="Post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Post_id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="Post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="St_E" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Self.Departments" />
+          <EntitySet Name="Destination" EntityType="Self.Destination" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <EntitySet Name="State" EntityType="Self.State" />
+          <AssociationSet Name="FK_Departments_Departments" Association="Self.FK_Departments_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Departments1" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departments_Departments1" Association="Self.FK_Departments_Departments1">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Departments1" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Destination_Destination" Association="Self.FK_Destination_Destination">
+            <End Role="Destination" EntitySet="Destination" />
+            <End Role="Destination1" EntitySet="Destination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Destination_State" Association="Self.FK_Destination_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Destination" EntitySet="Destination" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Posts" Association="Self.FK_State_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище StaffModelContainer" CdmEntityContainer="St_E">
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="StaffModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Destination">
+            <EntityTypeMapping TypeName="StaffModel.Destination">
+              <MappingFragment StoreEntitySet="Destination">
+                <ScalarProperty Name="Reception_id" ColumnName="Reception_id" />
+                <ScalarProperty Name="Personnal_id" ColumnName="Personnal_id" />
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+                <ScalarProperty Name="Post_id" ColumnName="Post_id" />
+                <ScalarProperty Name="Reception_Date" ColumnName="Reception_Date" />
+                <ScalarProperty Name="Dismissal_Date" ColumnName="Dismissal_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="StaffModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="Post_id" ColumnName="Post_id" />
+                <ScalarProperty Name="Post_Name" ColumnName="Post_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="StaffModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Personnal_id" ColumnName="Personnal_id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="State">
+            <EntityTypeMapping TypeName="StaffModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Department_id" ColumnName="Department_id" />
+                <ScalarProperty Name="Post_id" ColumnName="Post_id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

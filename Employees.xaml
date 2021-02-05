@@ -1,0 +1,20 @@
+﻿<Window x:Class="KP_ST.Employees"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KP_ST"
+        mc:Ignorable="d"
+          Title="Employees" Height="800" Width="1400" 
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Image x:Name="BG" Height="800" Width="1400" Grid.RowSpan="2" Margin="0,0,-0.4,0" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Opacity="0.8" Source="Res/background.jpg"/>
+
+        <Button x:Name="Назад" Content="Назад" HorizontalAlignment="Left" Margin="27,721,0,0" VerticalAlignment="Top" Width="90" Height="36" FontSize="20" Background="#FF5D8DB5" BorderBrush="#FF333337" Foreground="#FFFDFDFB" Click="Назад_Click" Opacity="0.9"/>
+        <DataGrid x:Name="Сотрудники"  HorizontalAlignment="Left" Height="600" Margin="212,0,0,146.4" VerticalAlignment="Bottom" Width="981" Background="#FFCBFF92" IsReadOnly="False" FontSize="20" BorderBrush="#FF124900" AutoGenerateColumns="True" Foreground="Black" Opacity="0.86">
+            
+
+        </DataGrid>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="403,679,0,0" VerticalAlignment="Top" Width="172" Height="51" FontWeight="Bold" FontSize="20" Background="#FFEDBE5A" BorderBrush="#FFEDBE5A" Opacity="0.7" Foreground="White" Click="Button_Click"/>
+    </Grid>
+</Window>
